@@ -12,9 +12,35 @@ class TicTacToeNode
   end
 
   def losing_node?(evaluator)
+    #evaluator is a mark (looking at spec file line 69)
+    #losing state if opposite mark has a full row, col or diag
+    
+    # if winner returns opposite of evaluator -> then losing node
+    if @board.over?
+      return false if @board.winner == nil
+      return @board.winner != evaluator
+    end
+    if @next_mover_mark == evaluator 
+      # if it is this players turn
+      #  should return true if every child is a loser (for self's mark)
+      children.all? {|child_node| child_node.losing_node?(evaluator)}
+    else
+      # if it is opponents turn
+      #  should return true if any child is a loser (for self's mark)
+      children.any? {|child_node| child_node.losing_node?(evaluator)}
+    end
   end
 
   def winning_node?(evaluator)
+    if @board.over?
+      return false if @board.winner == nil
+      return @board.winner == evaluator
+    end
+    if @next_mover_mark == evaluator
+      children.any? {|child_node| child_node.winning_node?(evaluator)}
+    else
+      children.all? {|child_node| child_node.winning_node?(evaluator)}
+    end
   end
 
   # This method generates an array of all moves that can be made after
