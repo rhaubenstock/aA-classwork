@@ -6,6 +6,7 @@ class KnightPathFinder
     def initialize(pos)
         @root_node = PolyTreeNode.new(pos)
         @considered_positions = [pos]
+        build_move_tree
     end
 
     def self.valid_moves(pos)
@@ -48,4 +49,27 @@ class KnightPathFinder
             # make sure order is correct
         end
     end
+
+    def find_path(end_pos)
+        # instance method KnightPathFinder#find_path(end_pos)
+        # move tree should be already built from initialize method
+        # make use of dfs or bfs from PolyTreeNode class to search
+        # [0,0] -> children [[1,2],[2,1]] -> each of those have children.... (will not have repeats bc of @considered_positions)
+    
+        #call dfs on end_pos
+        node_end_pos = @root_node.bfs(end_pos)
+        path = []
+        row, col = @root_node.value
+        while [row, col] != node_end_pos.value  # @root_node != node_end_pos
+            path.unshift(node_end_pos.value)
+            node_end_pos = node_end_pos.parent
+        end
+        path.unshift(@root_node.value)
+        path
+    end
+
 end
+
+kpf = KnightPathFinder.new([0,0])
+p kpf.find_path([7, 6]) # => [[0, 0], [1, 2], [2, 4], [3, 6], [5, 5], [7, 6]]
+p kpf.find_path([6, 2]) # => [[0, 0], [1, 2], [2, 0], [4, 1], [6, 2]]
