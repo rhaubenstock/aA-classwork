@@ -5,7 +5,7 @@ pieces.each {|piece| require_relative "../pieces/#{piece}.rb"}
 # require "colorize"
 
 class Board
-
+    attr_reader :rows
     def initialize
         @rows = Array.new(8) { Array.new(8, NullPiece.instance) }
         build_board
@@ -33,13 +33,6 @@ class Board
         self[starting_pos] = NullPiece.instance
     end
 
-    def render
-        @rows.each do |row|
-            puts row.map(&:to_s).join(' ')
-        end
-        nil
-    end
-
     protected
     def build_board
         piece_color = :black
@@ -55,7 +48,15 @@ class Board
     end
 
     private
-    BLACK_PIECES = (0..7).map {|col| [Pawn, [1,col]]} + [0,7].map {|col| [Rook, [0,col]]} + [1,6].map {|col| [Knight, [0,col]]} + [2,5].map {|col| [Bishop, [0,col]]} + [[Queen,[0,3]]] + [[King,[0,4]]]
-    WHITE_PIECES = []
+    BLACK_PIECES = (0..7).map { |col| [Pawn, [1, col] ] } + 
+                    [0, 7].map { |col| [Rook, [0, col] ] } + 
+                    [1, 6].map { |col| [Knight, [0, col] ] } + 
+                    [2, 5].map { |col| [Bishop, [0, col] ] } + 
+                    [ [Queen,[0, 3] ], [King,[0, 4] ] ]
+    WHITE_PIECES = (0..7).map { |col| [Pawn, [6, col] ] } +
+                    [0, 7].map { |col| [Rook, [7, col] ] } +
+                    [1, 6].map { |col| [Knight, [7, col] ] } +
+                    [2, 5].map { |col| [Bishop, [7, col] ] } +
+                    [ [Queen, [7, 3] ], [King, [7, 4] ] ]
 
 end
