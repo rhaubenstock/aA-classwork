@@ -10,11 +10,6 @@ class Board
         @rows = Array.new(8) { Array.new(8, NullPiece.instance) }
         build_board
         
-        # (0..7).each do |col_idx|
-        #     [0,1,6,7].each do |row_idx|
-        #         @rows[row_idx][col_idx] = Piece.new
-        #     end
-        # end
     end
 
     def [](position)
@@ -36,7 +31,6 @@ class Board
     protected
     def build_board
         piece_color = :black
-        p BLACK_PIECES
         BLACK_PIECES.each do |piece_class, piece_pos|
             self[piece_pos] = piece_class.new(piece_color, self, piece_pos)
         end
