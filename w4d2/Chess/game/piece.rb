@@ -1,5 +1,6 @@
 class Piece
     # symbol, Board, Array
+    attr_reader :color
     def initialize(color, board, pos)
         @color = color
         @board = board
@@ -11,18 +12,23 @@ class Piece
     end
 
     def empty?
-        #should return true if null piece? -> override to true in null piece class
-        false
+        @color != nil
     end
 
     def valid_moves
-        # return array of possible moves
+        moves
     end
 
     def pos=(val)
+        #do we modify board here? or just piece?
+
     end
 
-    def inspect
-        return "p"
+    def symbol
+        raise "Called from piece class! Should be overwritten!"
+    end
+    
+    private
+    def move_into_check?(end_pos)
     end
 end
