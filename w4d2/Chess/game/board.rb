@@ -43,6 +43,7 @@ class Board
     protected
     def build_board
         piece_color = :black
+        p BLACK_PIECES
         BLACK_PIECES.each do |piece_class, piece_pos|
             self[piece_pos] = piece_class.new(piece_color, self, piece_pos)
         end
@@ -54,7 +55,7 @@ class Board
     end
 
     private
-    BLACK_PIECES = [[Pawn, [1,0]], [Pawn, [1,1]], [Pawn, [1,2]]]
+    BLACK_PIECES = (0..7).map {|col| [Pawn, [1,col]]} + [0,7].map {|col| [Rook, [0,col]]} + [1,6].map {|col| [Knight, [0,col]]} + [2,5].map {|col| [Bishop, [0,col]]} + [[Queen,[0,3]]] + [[King,[0,4]]]
     WHITE_PIECES = []
 
 end
