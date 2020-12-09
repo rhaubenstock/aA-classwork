@@ -1,12 +1,14 @@
-require_relative "piece.rb"
-require_relative "../pieces/null_piece.rb"
+pieces = ["bishop", "king", "knight", "null_piece", "pawn", "queen", "rook"]
+pieces.each {|piece| require_relative "../pieces/#{piece}.rb"}
+
+
 # require "colorize"
 
 class Board
 
     def initialize
         @rows = Array.new(8) { Array.new(8, NullPiece.instance) }
-
+        build_board
         
         # (0..7).each do |col_idx|
         #     [0,1,6,7].each do |row_idx|
@@ -40,11 +42,19 @@ class Board
 
     protected
     def build_board
-        @rows[1][0] = Pawn.new(:black, self, [1,0])
+        piece_color = :black
+        BLACK_PIECES.each do |piece_class, piece_pos|
+            self[piece_pos] = piece_class.new(piece_color, self, piece_pos)
+        end
+
+        piece_color = :white
+        WHITE_PIECES.each do |piece_class, piece_pos|
+            self[piece_pos] = piece_class.new(piece_color, self, piece_pos)
+        end
     end
 
     private
-    BLACK_PIECES = [Pawn.new(:black, nil , Pawn.new]
-    WHite_PIECES = []
+    BLACK_PIECES = [[Pawn, [1,0]], [Pawn, [1,1]], [Pawn, [1,2]]]
+    WHITE_PIECES = []
 
 end
