@@ -3,11 +3,11 @@ require_relative "../game/piece.rb"
 class Pawn < Piece 
 
     def symbol 
-        "♙"
+        :♙
     end
 
     def moves
-
+        forward_steps + side_attacks
     end
 
     private
@@ -31,8 +31,10 @@ class Pawn < Piece
         attacks = []
         [-1, 1].each do |col_diff|
             enemy_position = [pos[0]+forward_dir, pos[1] + col_diff]
-            if  enemy_position[1].between?(0,7) && board[enemy_position].color != color 
-                attacks << enemy_position
+            if  enemy_position.all? { |idx| idx.between?(0,7) } && 
+                board[enemy_position].color != color && 
+                    !board[enemy_position].empty?
+                        attacks << enemy_position
             end
         end
         attacks

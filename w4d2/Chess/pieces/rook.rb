@@ -5,7 +5,7 @@ class Rook < Piece
   include Slidable
 
   def symbol
-    "♖"
+    :♖
   end
 
   def move_dirs

@@ -1,6 +1,6 @@
 class Piece
     # symbol, Board, Array
-    attr_reader :color
+    attr_reader :color, :pos, :board
     def initialize(color, board, pos)
         @color = color
         @board = board
@@ -8,20 +8,22 @@ class Piece
     end
 
     def to_s
-        @color.to_s #♙
+        symbol.to_s #♙
     end
 
     def empty?
-        @color != nil
+        @color == nil
     end
 
+    # reject moves that have a same color piece in them
     def valid_moves
         moves
     end
 
+    # changes pos from current_pos to where the piece moved
     def pos=(val)
         #do we modify board here? or just piece?
-
+        @pos = val
     end
 
     def symbol

@@ -1,11 +1,11 @@
 require_relative "../game/piece.rb"
-require_relative "../module/steppable.rb"
+require_relative "../modules/steppable.rb"
 
 class Knight < Piece
   include Steppable
 
   def symbol
-    "♘"
+    :♘
   end
 
   def move_diffs

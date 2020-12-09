@@ -33,8 +33,8 @@ module Slidable
     # add 
 
     # TODO: what if current_position is occuppied by piece with opposite color?
-    while current_position.all {|idx| idx.between?(0,7)} && (board[current_position].empty? || board[current_position].color != color)
-      unblocked_moves << current_position
+    while current_position.all? {|idx| idx.between?(0,7)} && (board[current_position].empty? || board[current_position].color != color)
+      unblocked_moves << current_position.dup
       current_position[0] += dy
       current_position[1] += dx
     end
