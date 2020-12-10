@@ -28,6 +28,48 @@ class Board
         self[starting_pos] = NullPiece.instance
     end
 
+    def in_check?(color)
+        # find king of same color's position 
+            # iterate over grid until king object found with color 
+        # any pieces of the opposite color have kings position as a valid move
+            # loop through all pieces of opposite color and check if any valid_moves
+            # include the kings position
+        king = find_king(color)
+        other_pieces = get_other_pieces(color)
+        other_pieces.any? { |piece| piece.valid_moves.include?(king.pos)}
+    end
+
+    def checkmate?(color)
+        king = find_king(color)
+        if in_check?(color)
+            # need to check all valid moves of color pieces
+            # check to see if any valid_move will bring the king out of check
+        end
+    end
+
+    def find_king(color)
+        king = nil
+        @rows.each do |row|
+            king = row.select { |piece| piece.is_a?(King) and piece.color == color }.first
+            break unless king.nil?
+        end
+        king
+    end
+
+    def get_other_pieces(color)
+        other_pieces = []
+        @rows.each do |row|
+            other_pieces += row.reject { |piece| piece.color == color || piece.empty? }
+        end
+        other_pieces
+    end
+
+    # for testing purposes only
+    def render
+        @rows.each { |row| puts row.map(&:to_s).join(' ') }
+        nil
+    end
+    
     protected
     def build_board
         piece_color = :black
