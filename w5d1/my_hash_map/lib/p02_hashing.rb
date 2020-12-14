@@ -4,11 +4,20 @@ end
 
 class Array
   def hash
+    self.to_s
+        .hash #calls String#hash
   end
 end
-
+ 
 class String
   def hash
+    self.chars
+        .map
+        .map(&:ord)
+        .map(&:to_s)
+        .join
+        .to_i
+        .hash
   end
 end
 
