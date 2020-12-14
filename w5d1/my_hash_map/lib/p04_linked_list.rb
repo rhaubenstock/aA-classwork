@@ -14,13 +14,14 @@ class Node
   end
 
   def remove
-    # optional but useful, connects previous link to next link
-    # and removes self from list.
+    prev.next = next if prev
+    next.prev = prev if next
   end
 end
 
 class LinkedList
   def initialize
+    
   end
 
   def [](i)
