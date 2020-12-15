@@ -36,7 +36,7 @@ class LRUCache
     # add to hashmap 
     @map.set(key, @store.last)
     # we could hit over max size
-    eject! if count >= @max
+    eject! if count > @max
   end
 
   def update_node!(node)
@@ -51,6 +51,8 @@ class LRUCache
 
   def eject!
     # removing oldest node
-    @store.remove(@store.first.key)
+    key_to_remove = @store.first.key
+    @map.delete(key_to_remove)
+    @store.remove(key_to_remove)
   end
 end
