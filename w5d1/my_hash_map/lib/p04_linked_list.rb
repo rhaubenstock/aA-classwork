@@ -98,10 +98,10 @@ class LinkedList
     each {|node| node.remove if node.key == key}
   end
 
-  def each(&prc)
+  def each
     current_node = first
     while current_node != @tail
-      prc.call(current_node)
+      yield current_node
       current_node = current_node.next
     end
   end
