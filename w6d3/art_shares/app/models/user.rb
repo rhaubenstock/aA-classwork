@@ -11,7 +11,7 @@ class User < ApplicationRecord
     through: :artwork_shares,
     source: :artwork
     
-  has_many :art_works
+  has_many :art_works,
     primary_key: :id,
     foreign_key: :artist_id,
     class_name: :Artwork,
