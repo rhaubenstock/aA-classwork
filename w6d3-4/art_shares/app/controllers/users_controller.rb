@@ -1,6 +1,16 @@
+require "byebug"
 class UsersController < ApplicationController
     def index
-        render json: User.all
+        #debugger
+        # if params has a :query key -> search for that user
+        if params.keys.length > 2
+            key = params.keys.reject {|k| k == "controller" || k == "action"}.first
+            users = User.where('username LIKE ?', "%#{params[key]}%")
+        else
+            # otherwise -> return all users
+            users = User.all
+        end
+        render json: users
     end
   
     def create
