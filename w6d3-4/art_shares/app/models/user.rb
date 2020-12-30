@@ -17,5 +17,13 @@ class User < ApplicationRecord
     class_name: :Artwork,
     dependent: :destroy
 
+  has_many :comments,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: :Comment,
+    dependent: :destroy
+
+    
+
 
 end
