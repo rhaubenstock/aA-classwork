@@ -28,4 +28,11 @@ comments = Comment.create ([          {author_id: 1, artwork_id: 1, body: "a"},
                                       {author_id: 2, artwork_id: 3, body: "g"},
                                       {author_id: 3, artwork_id: 1, body: "h"}
                             ])
+likes = Like.create ([                {liker_id: 1,likeable_id: 1, likeable_type: "Comment"},
+                                      {liker_id: 2,likeable_id: 1, likeable_type: "Artwork"},
+                                      {liker_id: 3,likeable_id: 2, likeable_type: "Comment"},
+                                      {liker_id: 1,likeable_id: 2, likeable_type: "Artwork"},
+                                      {liker_id: 2,likeable_id: 3, likeable_type: "Comment"},
+                                      {liker_id: 3,likeable_id: 3, likeable_type: "Artwork"}
+                            ])
                                     

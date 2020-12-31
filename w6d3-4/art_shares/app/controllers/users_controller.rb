@@ -39,6 +39,13 @@ class UsersController < ApplicationController
         render json: user
     end
 
+    def favorites
+        fav_art = Artwork.where(artist_id: params[:id], favorited: true) + 
+        Artwork.joins(:artwork_shares).where(viewer_id: params[:id], favorited: true)
+
+        render json: fav_art
+    end
+
     private
 
     def user_params

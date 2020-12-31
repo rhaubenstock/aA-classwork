@@ -1,3 +1,4 @@
+require 'byebug'
 class ArtworksController < ApplicationController
 
   def index
@@ -30,10 +31,25 @@ class ArtworksController < ApplicationController
     arwork.destroy
     render json: artwork
   end
+
+  def favorite
+    debugger
+    artwork = Artwork.find(params[:id])
+    if artwork.artist_id == params[:user_id].to_i
+      artwork.update!(favorited: true)
+      artwork.save
+      render json: artwork
+    else
+      artwork_share = artwork.artwork_shares.find_by(viewer_id: params[:user_id])
+      artwork_share.update!(favorited: true)
+      artwork_share.save
+      render json: artwork_share
+    end
+  end
   
   private
 
   def artwork_params
-    params.require(:artwork).permit(:title, :image_url, :artist_id)
+    params.require(:artwork).permit(:title, :image_url, :artist_id, :favorited)
   end
 end

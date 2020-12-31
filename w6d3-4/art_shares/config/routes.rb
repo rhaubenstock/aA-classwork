@@ -2,8 +2,15 @@ Rails.application.routes.draw do
   # debugger
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users, only: [:index, :show, :destroy, :create, :update] do
-    resources :artworks, only: [:index]
+    resources :artworks, only: [:index] do
+      member do 
+        patch 'favorite'
+      end
+    end
     resources :comments, only: [:index]
+    member do
+      get 'favorites'
+    end
   end
   # get '/users/:id', to:'users#show', as:'user' 
   # get '/users', to:'users#index', as:'users'
