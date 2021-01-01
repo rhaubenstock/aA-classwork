@@ -1,0 +1,41 @@
+<!---
+<form action="/cats" method="POST">
+  <label> Name:
+    <input type="text" name="cat[name]">
+  </label>
+  <br>
+
+  <label> Birth Date:
+    <input type="date" name="cat[birth_date]">
+  </label>
+  <br>
+
+  <label> Color:
+    <select name="cat[color]">
+      <option disabled selected>-- Select Color --</option>
+      <option value="orange">Orange</option>
+      <option value="black">Black</option>
+      <option value="brown">Brown</option>
+      <option value="white">White</option>
+    </select>
+  </label>
+  <br>
+
+  <label> Sex:
+    <input type="radio" id="M" name="cat[sex]" value="M">
+    <label for="M">M</label>
+    <input type="radio" id="F" name="cat[sex]" value="F">
+    <label for="F">F</label>
+  </label>
+  <br>
+
+  <label> Description:
+    <input type="textarea" name="cat[description]">
+  </label>
+  
+  <input type="submit" value="Create Cat">
+
+</form>
+--->
+
+<%= render "form", cat: @cat, type: :new %>
