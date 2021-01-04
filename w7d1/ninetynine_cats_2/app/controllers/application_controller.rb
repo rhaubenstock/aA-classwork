@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user
+  helper_method :current_user, :logged_in?
 
   def current_user
     @current_user ||= User.find_by(session_token: session[:session_token])
@@ -27,4 +27,7 @@ class ApplicationController < ActionController::Base
     redirect_to cats_url if logged_in?
   end
   
+  def require_owner
+    redirect_to cats_url unless current_user.cats.find_by(id: params[:id])
+  end
 end
