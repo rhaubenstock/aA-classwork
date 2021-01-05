@@ -32,14 +32,14 @@ class User < ApplicationRecord
     self.session_token
   end
 
-  def is_password?(pw)
-    BCrypt::Password.new(self.password_digest).is_password?(pw)
+  def is_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
 
-    if user && user.password?(pw)
+    if user && user.is_password?(password)
       user
     else
       nil
@@ -48,6 +48,8 @@ class User < ApplicationRecord
 
   has_many :cats,
     primary_key: :id,
-    foreign_key: :owner_id,
+    foreign_key: :user_id,
     class_name: :Cat
+
+  has_many :cat_rental_requests
 end

@@ -1,5 +1,6 @@
 class CatsController < ApplicationController
   before_action :require_owner, only: [:edit, :update]
+  before_action :require_logged_in, except: [ :index, :show ]
 
   def index
     @cats = Cat.all
