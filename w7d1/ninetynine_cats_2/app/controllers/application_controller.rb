@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
   end
   
   def require_owner
-    redirect_to cats_url unless current_user.cats.find_by(id: params[:id])
+    redirect_to cats_url unless current_user.cats.find_by(id: params[:id]) ||
+                                current_user.cats.find_by(id: CatRentalRequest.find_by(id: params[:id]).cat.id)
   end
 end
