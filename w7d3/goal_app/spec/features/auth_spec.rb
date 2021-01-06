@@ -21,8 +21,13 @@ feature 'the signup process' do
 end
 
 feature 'logging in' do
-  scenario 'shows username on the homepage after login'
-
+  scenario 'shows username on the homepage after login' do
+    visit new_session_url
+    fill_in 'username', with: 'Brad'
+    fill_in 'password', with: 'BradIsRad'
+    click_on 'Sign In!'
+    expect(page).to have_content 'Brad'
+  end
 end
 
 feature 'logging out' do
