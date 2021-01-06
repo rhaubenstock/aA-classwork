@@ -37,4 +37,14 @@ RSpec.describe UsersController, type: :controller do
 
         end
     end
+
+    describe "GET #show" do 
+        context "when logged in" do 
+        
+        end
+
+        context "when logged out" do
+        
+        end
+    end
 end
