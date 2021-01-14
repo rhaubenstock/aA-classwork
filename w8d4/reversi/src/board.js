@@ -9,7 +9,7 @@ if (typeof window === 'undefined'){
  * and two white pieces at [3, 3] and [4, 4]
  */
 function _makeGrid () {
-  let grid = Array(8).fill().map(() => Array(8));
+  let grid = Array(8).fill().map(() => Array(8).fill());
   grid[3][4] = new Piece("black");
   grid[4][3] = new Piece("black");
   grid[3][3] = new Piece("white");
@@ -136,6 +136,18 @@ Board.prototype.validMove = function (pos, color) {
  * Throws an error if the position represents an invalid move.
  */
 Board.prototype.placePiece = function (pos, color) {
+  if(!this.validMove(pos, color)) {
+    throw new Error ('Invalid move!');
+  } else {
+    Board.DIRS.forEach( 
+      dir => {
+        this._positionsToFlip(pos, color, dir).forEach(
+          piecePos => this.grid[piecePos[0]][piecePos[1]].color = color
+        )
+      }
+     )
+    this.grid[pos[0]][pos[1]] = new Piece(color);
+  }
 };
 
 /**
@@ -143,12 +155,22 @@ Board.prototype.placePiece = function (pos, color) {
  * the Board for a given color.
  */
 Board.prototype.validMoves = function (color) {
+  let validMoveArr = [];
+  for (let i = 0; i < this.grid.length; i++) {
+    for (let j = 0; j < this.grid.length; j++) {
+      if (this.validMove([i,j], color)) {
+        validMoveArr.push([i,j]);
+      }
+    }
+  }
+  return validMoveArr;
 };
 
 /**
  * Checks if there are any valid moves for the given color.
  */
 Board.prototype.hasMove = function (color) {
+  return !!this.validMoves(color).length;
 };
 
 
@@ -158,6 +180,7 @@ Board.prototype.hasMove = function (color) {
  * the black player are out of moves.
  */
 Board.prototype.isOver = function () {
+  return !this.hasMove('black') && !this.hasMove('white')
 };
 
 
@@ -167,6 +190,10 @@ Board.prototype.isOver = function () {
  * Prints a string representation of the Board to the console.
  */
 Board.prototype.print = function () {
+  console.log(this.grid.map(
+    row => row.map(
+      piece => piece ? piece.toString() : ' '
+    ).join(' ')).join('\n'))
 };
 
 
