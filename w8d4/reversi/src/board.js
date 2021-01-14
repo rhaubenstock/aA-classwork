@@ -115,6 +115,18 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
  * color being flipped.
  */
 Board.prototype.validMove = function (pos, color) {
+  // [0,0], "black"
+  // _positionsToFlip -> array 
+  // add all pieces of each direction
+
+  if (!this.isOccupied(pos)){
+    //iterate through each direction
+    // return true if one is not-empty
+    return Board.DIRS.some(
+      dir => this._positionsToFlip(pos, color, dir).length > 0
+    );
+  }
+  return false;
 };
 
 /**
