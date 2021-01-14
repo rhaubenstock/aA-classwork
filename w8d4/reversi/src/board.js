@@ -95,6 +95,18 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
   // if hit piece of same color 
   //  -> return array of all pieces between starting pos and end pos
 
+  if (piecesToFlip === undefined) { 
+    piecesToFlip = [];
+  }
+  let nextPos = [pos[0] + dir[0], pos[1] + dir[1]];
+  if (!this.isValidPos(nextPos) || !this.isOccupied(nextPos)) {
+    return [];
+  } else if (this.getPiece(nextPos).color === color) {
+    return piecesToFlip;
+  } else {
+    piecesToFlip.push(nextPos);
+    return this._positionsToFlip(nextPos, color, dir, piecesToFlip);
+  }
 };
 
 /**
