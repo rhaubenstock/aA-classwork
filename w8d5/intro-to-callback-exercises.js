@@ -94,12 +94,12 @@ class Clock {
 
 //absurdBubbleSort
 
-const readline = require("readline");
+// const readline = require("readline");
 
-const reader = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+// const reader = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout
+// });
 
 // Write this first.
 function askIfGreaterThan(el1, el2, callback) {
@@ -126,14 +126,15 @@ function innerBubbleSortLoop(arr, i, madeAnySwaps, outerBubbleSortLoop) {
         outerBubbleSortLoop(madeAnySwaps);
     
     }else{
-        askIfGreaterThan(arr[i], arr[i + 1], function(boolean){
-            if (boolean) {
-                [arr[i],arr[i+1]] = [arr[i+1],arr[i]];
-                madeAnySwaps = true;
-            }
+        askIfGreaterThan(arr[i], arr[i + 1], 
+            function(boolean){
+                if (boolean) {
+                    [arr[i],arr[i+1]] = [arr[i+1],arr[i]];
+                    madeAnySwaps = true;
+                }
 
-            innerBubbleSortLoop(arr, i+1, madeAnySwaps, outerBubbleSortLoop);
-        }
+                innerBubbleSortLoop(arr, i+1, madeAnySwaps, outerBubbleSortLoop);
+            }
         );
     }
 }
@@ -145,14 +146,167 @@ function absurdBubbleSort(arr, sortCompletionCallback) {
     function outerBubbleSortLoop(madeAnySwaps) {
         // Begin an inner loop if you made any swaps. Otherwise, call
         // `sortCompletionCallback`.
+        if (madeAnySwaps){
+          innerBubbleSortLoop(arr, 0, false, outerBubbleSortLoop);
+        }
+        else{
+          sortCompletionCallback(arr);
+        }
     }
 
     // Kick the first outer loop off, starting `madeAnySwaps` as true.
+    outerBubbleSortLoop(true);
 }
 
-// absurdBubbleSort([3, 2, 1], function (arr) {
+// absurdBubbleSort(["cat", "dog", "horse"], function (arr) {
 //     console.log("Sorted array: " + JSON.stringify(arr));
 //     reader.close();
 // });
 
 // askIfGreaterThan(5,7,function(boolean){console.log(boolean)})
+// innerBubbleSortLoop([4,3,10,1], 1, true, function(boolean){console.log(`finished with return value: ${boolean}`)});
+
+
+
+Function.prototype.myBind = function(context){
+  return () => {
+    this.call(context);
+  };
+}
+
+
+
+// class Lamp {
+//   constructor() {
+//     this.name = "a lamp";
+//   }
+// }
+
+// const turnOn = function() {
+//   console.log("Turning on " + this.name);
+// };
+
+// const lamp = new Lamp();
+
+// turnOn(); // should not work the way we want it to
+
+// const boundTurnOn = turnOn.bind(lamp);
+// const myBoundTurnOn = turnOn.myBind(lamp);
+
+// boundTurnOn(); // should say "Turning on a lamp"
+// myBoundTurnOn(); // should say "Turning on a lamp"
+
+Function.prototype.myThrottle = function(interval){
+  let tooSoon = false;
+  return function(){
+    if (!tooSoon){
+      tooSoon = true;
+      setTimeout(function(){tooSoon = false;}, interval);
+      //this -> function itself
+      this(...arguments);
+    }
+  }.bind(this);
+}
+
+
+// class Neuron {
+//   fire() {
+//     console.log("Firing!");
+//   }
+// }
+
+// const neuron = new Neuron();
+// When we create a new Neuron,
+// we can call #fire as frequently as we want
+
+// The following code will try to #fire the neuron every 10ms. Try it in the console:
+// const interval = setInterval(() => {
+//   neuron.fire();
+// }, 10);
+
+// // You can use clearInterval to stop the firing:
+// clearInterval(interval);
+
+// // Using Function#myThrottle, we should be able to throttle
+// // the #fire function of our neuron so that it can only fire
+// // once every 500ms:
+
+// neuron.fire = neuron.fire.myThrottle(500);
+
+// const interval = setInterval(() => {
+//   neuron.fire();
+// }, 10);
+
+// // This time, if our Function#myThrottle worked correctly,
+// // the Neuron#fire function should only be able to execute
+// // every 500ms, even though we're still trying to invoke it
+// // every 10ms!
+
+// // If we want this behavior for ALL neurons, we can do the same logic in the constructor:
+
+// class Neuron {
+//   constructor() {
+//     this.fire = this.fire.myThrottle(500);
+//   }
+
+//   fire() {
+//     console.log("Firing!");
+//   }
+// }
+
+Function.prototype.myDebounce = function(interval){
+  let lastCalledTimeout = undefined;
+  return function(){
+    if(lastCalledTimeout){
+      clearTimeout(lastCalledTimeout);
+    }
+    lastCalledTimeout = setTimeout(function(){
+      this(...arguments);
+    }.bind(this), interval);
+  }.bind(this);
+}
+
+// function -> "hello"
+// button -> 1s after you press the button-> "hello"
+
+
+class SearchBar {
+  constructor() {
+    this.query = "";
+
+    this.type = this.type.bind(this);
+    this.search = this.search.bind(this);
+  }
+
+  type(letter) {
+    this.query += letter;
+    this.search();
+  }
+
+  search() {
+    console.log(`searching for ${this.query}`);
+  }
+}
+
+
+const searchBar = new SearchBar();
+
+const queryForHelloWorld = () => {
+  searchBar.type("h");
+  searchBar.type("e");
+  searchBar.type("l");
+  searchBar.type("l");
+  searchBar.type("o");
+  searchBar.type(" ");
+  searchBar.type("w");
+  searchBar.type("o");
+  searchBar.type("r");
+  searchBar.type("l");
+  searchBar.type("d");
+};
+
+// queryForHelloWorld();
+
+searchBar.search = searchBar.search.myDebounce(500);
+
+queryForHelloWorld();
