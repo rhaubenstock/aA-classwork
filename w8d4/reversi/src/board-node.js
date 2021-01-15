@@ -30,11 +30,21 @@ Node.prototype.populate = function(){
       // at the same locations with the same colors
 
       // iterating over board.grid -> if there is a piece -> create a new piece with same color
-
+      let gridCopy = [];
+      this.board.grid.forEach(
+        row => {
+          let rowCopy = row.map(
+            piece => piece ? new Piece(piece.color) : undefined
+          )
+          gridCopy.push(rowCopy);
+        }
+      );
       
+      let newBoard = new Board();
+      newBoard.grid = gridCopy;
+      newBoard.placePiece(move, this.color);
+      this.children.push(new Node(newBoard, this.color === 'black' ? 'white' : 'black'));
     }
   )
 }
-
-
 

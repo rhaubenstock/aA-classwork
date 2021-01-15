@@ -196,9 +196,69 @@ Board.prototype.print = function () {
     ).join(' ')).join('\n'))
 };
 
+Board.prototype.isLost = function(color) {
+  if (!this.isOver()) {
+    return false;
+  }
 
+  let whiteCount = 0;
+  let blackCount = 0;
+
+  for (let i = 0; i < this.grid.length; i++) {
+    for (let j = 0; j < this.grid.length; j++) {
+      if(this.isOccupied([i,j])) {
+        if(this.grid[i][j].color === 'white') {
+          whiteCount += 1;
+        } else {
+          blackCount += 1;
+        }
+      }
+    }
+  }
+
+  if (color === 'white') {
+    return whiteCount < blackCount;
+  } else {
+    return blackCount < whiteCount;
+  }
+}
+
+Board.prototype.isWon = function (color) {
+  if (!this.isOver()) {
+    return false;
+  }
+
+  let whiteCount = 0;
+  let blackCount = 0;
+
+  for (let i = 0; i < this.grid.length; i++) {
+    for (let j = 0; j < this.grid.length; j++) {
+      if (this.isOccupied([i, j])) {
+        if (this.grid[i][j].color === 'white') {
+          whiteCount += 1;
+        } else {
+          blackCount += 1;
+        }
+      }
+    }
+  }
+
+  if (color === 'white') {
+    return whiteCount > blackCount;
+  } else {
+    return blackCount > whiteCount;
+  }
+}
 // DON'T TOUCH THIS CODE
 if (typeof window === 'undefined'){
   module.exports = Board;
 }
 // DON'T TOUCH THIS CODE
+
+Board.prototype.fillAll = function(color) {
+  this.grid = this.grid.map( 
+    row => row.map ( 
+      () => new Piece(color)
+    )
+  )
+}
