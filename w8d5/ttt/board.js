@@ -44,6 +44,12 @@ class Board {
         }
     }
 
+    print(){
+        console.log(this.grid[0].join(" "));
+        console.log(this.grid[1].join(" "));
+        console.log(this.grid[2].join(" "));
+    }
 }
 
 module.exports = Board;
+
