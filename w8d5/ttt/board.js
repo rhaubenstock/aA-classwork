@@ -1,6 +1,7 @@
 class Board {
     constructor(){
         this.grid = [Array(3),Array(3),Array(3)];
+        this.player = "x"
     }
     empty(pos) {
         return this.grid[pos[0]][pos[1]] === undefined;
@@ -35,4 +36,14 @@ class Board {
         });
         return rowWinner || colWinner || topLeftDiagWinner || topRightDiagWinner;
     }
+
+    winner(){
+        if (this.won()){
+            return this.player;
+            
+        }
+    }
+
 }
+
+module.exports = Board;
