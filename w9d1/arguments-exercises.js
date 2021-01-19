@@ -78,3 +78,43 @@ Function.prototype.myBind = function(ctx, ...args){
 // console.log(notMarkovSays("meow", "me"));
 // // Pavlov says meow to me!
 // // true
+
+function curriedSum(numArgs) {
+  let numbers = [];
+  const _curriedSum = function(num) {
+    numbers.push(num);
+    if (numbers.length === numArgs) {
+      let total = 0;
+      numbers.forEach(ele => total += ele)
+      return total;
+    } else {
+      return _curriedSum;
+    }
+  }
+  return _curriedSum;
+}
+
+// const sum1 = curriedSum(4);
+// console.log(sum1(5)(30)(20)(1)); 
+
+
+Function.prototype.curry = function(numArgs) {
+  let args = []; // 5, 30.. 
+  let that = this;
+  const _curry = function(arg) {
+    args.push(arg);
+    if (args.length === numArgs) {
+      // let total = 0;
+      // args.forEach(ele => total += ele)
+      // return total;
+      return that.apply(that, args);
+    } else {
+      return _curry;
+    }
+  }
+  return _curry;
+}
+
+
+// const sum2 = sum.curry(5);
+// console.log(sum2(5)(30)(20)(1));
