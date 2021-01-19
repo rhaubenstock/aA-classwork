@@ -1,6 +1,6 @@
 // const Level = require('./level')
 import Level from './level';
-
+import Bird from './bird';
 
 export default class FlappyBird {
   constructor(canvas){
@@ -10,10 +10,12 @@ export default class FlappyBird {
   
   animate(){
     this.level.animate(this.ctx);
+    this.bird.animate(this.ctx);
   }
 
   restart(){
     this.level = new Level(this.dimensions);
+    this.bird = new Bird(this.dimensions);
     this.animate();
   }
 }
