@@ -33,14 +33,28 @@ class View {
       let rowIndex = Math.floor(e.target.id / 3);
       let colIndex = e.target.id % 3;
       console.log(rowIndex);
-      this.game.playMove([rowIndex, colIndex]);
-      let value = this.game.board.grid[rowIndex][colIndex];
-      $(e.target).text(value);
-      $(e.target).toggleClass(value); 
+      try {
+        this.game.playMove([rowIndex, colIndex]);
+        let value = this.game.board.grid[rowIndex][colIndex];
+        $(e.target).text(value);
+        $(e.target).toggleClass(value); 
+        if (this.game.isOver()) {
+          this.$el.addClass('game-over');
+          if (this.game.winner()) {
+            const message = $(`<figcaption>You win, ${this.game.winner()}!</figcaption>`);
+            this.$el.append(message);
+          }
+        }
+      
+      } catch {
+        window.alert('Invalid move! Try again.');
+      }
     })
   }
 
-  makeMove($square) {}
+  makeMove($square) {
+
+  }
 
   setupBoard() {
     const $grid = $("<ul class='grid'></ul>");

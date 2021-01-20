@@ -17,16 +17,17 @@ ul li:hover {
 }
 
 .grid-cell {
-  background: white;
   text-align: center;
   font-size: 60px;
 }
 
 .grid-cell.x {
+  background: white;
   color: green;
 }
 
 .grid-cell.o {
+  background: white;
   color: blue;
 }
 
