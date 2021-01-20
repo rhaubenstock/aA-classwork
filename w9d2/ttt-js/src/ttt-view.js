@@ -29,10 +29,14 @@ class View {
     // }
     const $bucketList = $('.grid');
     $bucketList.on('click', 'li', (e) => { 
-      $(e.target).toggleClass('complete') 
-      let rowIndex = Math.floor(e.id / 3);
-      let colIndex = e.id % 3;
+     
+      let rowIndex = Math.floor(e.target.id / 3);
+      let colIndex = e.target.id % 3;
+      console.log(rowIndex);
       this.game.playMove([rowIndex, colIndex]);
+      let value = this.game.board.grid[rowIndex][colIndex];
+      $(e.target).text(value);
+      $(e.target).toggleClass(value); 
     })
   }
 

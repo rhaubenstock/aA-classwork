@@ -16,3 +16,17 @@ ul li:hover {
   background: yellow;
 }
 
+.grid-cell {
+  background: white;
+  text-align: center;
+  font-size: 60px;
+}
+
+.grid-cell.x {
+  color: green;
+}
+
+.grid-cell.o {
+  color: blue;
+}
+
