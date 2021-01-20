@@ -1,6 +1,12 @@
+const CONSTANTS = {
+  DISTANCE: 220,
+  GAP: 150
+};
+
 export default class Level {
   constructor(dimensions) {
     this.dimensions = dimensions;
+    //this.pipes = [];
   }
 
   drawBackground(ctx) {
