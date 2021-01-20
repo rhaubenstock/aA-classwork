@@ -1,0 +1,10 @@
+ul {
+  display: flex;
+  width: 300px;
+  flex-wrap: wrap;
+}
+
+ul li {
+  width: 100px;
+  border: 10px solid black;
+}

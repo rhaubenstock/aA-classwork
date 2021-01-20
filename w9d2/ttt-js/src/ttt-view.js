@@ -5,7 +5,15 @@ class View {
 
   makeMove($square) {}
 
-  setupBoard() {}
+  setupBoard() {
+    const $grid = $("<ul></ul>")
+    $el.append("<ul></ul>");
+
+
+
+
+
+  }
 }
 
 module.exports = View;
