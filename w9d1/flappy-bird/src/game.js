@@ -27,6 +27,8 @@ export default class FlappyBird {
   }
 
   click(){
+    console.log("registering a click")
+    console.log(this);
     if (this.running) {
       this.bird.flap();
     } else {

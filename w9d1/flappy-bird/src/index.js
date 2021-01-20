@@ -5,5 +5,6 @@ const game = new FlappyBird(canvas);
 
 document.addEventListener("DOMContentLoaded", function () {
   game.restart();
-
+  game.play();
+  document.addEventListener("mousedown", game.click.bind(game));
 });
