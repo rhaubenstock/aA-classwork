@@ -7,7 +7,6 @@ function Asteroid(options){
   options.color ||= "green";
   options.radius ||= 50;
   options.vel ||= Util.randomVec();
-  debugger;
   MovingObject.call(this, options);
 }
 
