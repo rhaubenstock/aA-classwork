@@ -1,8 +1,8 @@
-function MovingObject(){
-  this.pos = arguments[0].pos;
-  this.vel = arguments[0].vel;
-  this.radius = arguments[0].radius;
-  this.color = arguments[0].color;
+function MovingObject(options){
+  this.pos = options.pos;
+  this.vel = options.vel;
+  this.radius = options.radius;
+  this.color = options.color;
 }
 
 MovingObject.prototype.draw = function(ctx) {
