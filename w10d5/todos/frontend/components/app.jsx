@@ -1,8 +1,9 @@
 import React from 'react';
+import TodoListContainer from './../components/todos/todo_list_container'
 
 function App () {
   return (
-    <h1>ToDos App!</h1>
+    <TodoListContainer/>
   )
 }
 
