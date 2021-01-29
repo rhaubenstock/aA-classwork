@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import TodoList from './todo_list'
 import allTodos from './../../reducers/selectors'
-import {receiveTodo} from './../../actions/todo_actions'
+import {receiveTodo, removeTodo} from './../../actions/todo_actions'
 
 function mapStateToProps(state) {
   return {
@@ -11,7 +11,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    receiveTodo: todo => dispatch(receiveTodo(todo))
+    receiveTodo: (todo) => dispatch(receiveTodo(todo)),
+    removeTodo: (id) => dispatch(removeTodo(id)) // it takes in an ID rather than the object itself.
   }
 }
 
