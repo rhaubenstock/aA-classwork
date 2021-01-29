@@ -9,7 +9,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps () {
+function mapDispatchToProps (dispatch) {
   return {
     receiveTodo: todo => dispatch(receiveTodo(todo))
   }
