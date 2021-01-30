@@ -11,8 +11,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    receiveTodo: (todo) => dispatch(receiveTodo(todo)),
-    removeTodo: (id) => dispatch(removeTodo(id)) // it takes in an ID rather than the object itself.
+    dispatchReceiveTodo: (todo) => dispatch(receiveTodo(todo)),
+    dispatchRemoveTodo: (id) => dispatch(removeTodo(id)) // it takes in an ID rather than the object itself.
   }
 }
 

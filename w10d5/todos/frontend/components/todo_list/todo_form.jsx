@@ -21,7 +21,7 @@ class TodoForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.receiveTodo(this.state);
+    this.props.dispatchReceiveTodo(this.state);
     //afterwards -> new id so that old one doesn't get overwritten
     this.resetForm();
   }
