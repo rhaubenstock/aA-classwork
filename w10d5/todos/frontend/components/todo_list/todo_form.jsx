@@ -41,6 +41,7 @@ class TodoForm extends React.Component {
   render(){
     return(
       <form onSubmit={this.handleSubmit}>
+        
         <h1>Add Todo</h1>
 
         <label>Title
@@ -52,8 +53,8 @@ class TodoForm extends React.Component {
         </label>
         <br />
         <label>Done
-          <input type="radio" value={true} name="done" onChange={this.updateDone}/> True
-          <input type="radio" value={false} name="done" onChange={this.updateDone}/> False
+          <input type="radio" value={true} name="done" onChange={this.updateDone} checked={this.state.done}/> True
+          <input type="radio" value={false} name="done" onChange={this.updateDone} checked={!this.state.done} /> False
         </label>
         <button type="submit">Create Todo</button>
       </form>
