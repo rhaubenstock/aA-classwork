@@ -21,9 +21,10 @@ class TodoForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.dispatchReceiveTodo(this.state);
+    this.props.dispatchCreateTodo(this.state).then(
+      () => this.resetForm()
+    );
     //afterwards -> new id so that old one doesn't get overwritten
-    this.resetForm();
   }
 
   updateTitle(e){

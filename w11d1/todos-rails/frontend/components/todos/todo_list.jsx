@@ -12,7 +12,7 @@ class todoList extends React.Component {
     const todos = this.props.todos;
     const dispatchRemoveTodo = this.props.dispatchRemoveTodo;
     const dispatchReceiveTodo = this.props.dispatchReceiveTodo;
-    // const dispatchRemoveTodo = this.props.dispatchRemoveTodo;
+    const dispatchCreateTodo = this.props.dispatchCreateTodo;
     
 
 
@@ -22,7 +22,7 @@ class todoList extends React.Component {
         <ul>
           {todoList}
         </ul>
-        <TodoListForm dispatchReceiveTodo={dispatchReceiveTodo} />
+        <TodoListForm {...{dispatchCreateTodo}} />
       </>
     );
   }

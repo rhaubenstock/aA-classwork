@@ -131,7 +131,7 @@ var removeStep = function removeStep(id) {
 /*!******************************************!*\
   !*** ./frontend/actions/todo_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_TODOS, RECEIVE_TODO, REMOVE_TODO, receiveTodos, receiveTodo, removeTodo, fetchTodos */
+/*! exports provided: RECEIVE_TODOS, RECEIVE_TODO, REMOVE_TODO, receiveTodos, receiveTodo, removeTodo, fetchTodos, createTodo */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -143,6 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveTodo", function() { return receiveTodo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeTodo", function() { return removeTodo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTodos", function() { return fetchTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTodo", function() { return createTodo; });
 /* harmony import */ var _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../util/todo_api_util */ "./frontend/util/todo_api_util.js");
 var RECEIVE_TODOS = "RECEIVE_TODOS";
 var RECEIVE_TODO = "RECEIVE_TODO";
@@ -171,6 +172,16 @@ var fetchTodos = function fetchTodos() {
   return function (dispatch) {
     return _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchTodos"]().then(function (result) {
       dispatch(receiveTodos(result));
+    });
+  };
+}; //createTodo - is a thunk action creator
+// which means it returns a function that takes in dispatch
+// we want it to do an API request and then update store based on response
+
+var createTodo = function createTodo(todo) {
+  return function (dispatch) {
+    return _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["addTodo"](todo).then(function (result) {
+      return dispatch(receiveTodo(result));
     });
   };
 };
@@ -306,10 +317,12 @@ var TodoForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      e.preventDefault();
-      this.props.dispatchReceiveTodo(this.state); //afterwards -> new id so that old one doesn't get overwritten
+      var _this2 = this;
 
-      this.resetForm();
+      e.preventDefault();
+      this.props.dispatchCreateTodo(this.state).then(function () {
+        return _this2.resetForm();
+      }); //afterwards -> new id so that old one doesn't get overwritten
     }
   }, {
     key: "updateTitle",
@@ -478,8 +491,8 @@ var todoList = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var todos = this.props.todos;
       var dispatchRemoveTodo = this.props.dispatchRemoveTodo;
-      var dispatchReceiveTodo = this.props.dispatchReceiveTodo; // const dispatchRemoveTodo = this.props.dispatchRemoveTodo;
-
+      var dispatchReceiveTodo = this.props.dispatchReceiveTodo;
+      var dispatchCreateTodo = this.props.dispatchCreateTodo;
       var todoList = todos.map(function (todo) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_todo_list_item__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({
           key: todo.id
@@ -490,7 +503,7 @@ var todoList = /*#__PURE__*/function (_React$Component) {
         }));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, todoList), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        dispatchReceiveTodo: dispatchReceiveTodo
+        dispatchCreateTodo: dispatchCreateTodo
       }));
     }
   }]);
@@ -537,6 +550,9 @@ function mapDispatchToProps(dispatch) {
     // it takes in an ID rather than the object itself.
     dispatchFetchTodos: function dispatchFetchTodos() {
       return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["fetchTodos"])());
+    },
+    dispatchCreateTodo: function dispatchCreateTodo(todo) {
+      return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["createTodo"])(todo));
     }
   };
 }
@@ -774,6 +790,7 @@ document.addEventListener("DOMContentLoaded", function () {
     store: window.store
   }), root);
   window.fetchTodos = _actions_todo_actions__WEBPACK_IMPORTED_MODULE_4__["fetchTodos"];
+  window.createTodo = _actions_todo_actions__WEBPACK_IMPORTED_MODULE_4__["createTodo"];
   window.receiveTodo = _actions_todo_actions__WEBPACK_IMPORTED_MODULE_4__["receiveTodo"];
   window.receiveTodos = _actions_todo_actions__WEBPACK_IMPORTED_MODULE_4__["receiveTodos"];
   window.receiveStep = _actions_step_actions_js__WEBPACK_IMPORTED_MODULE_5__["receiveStep"];

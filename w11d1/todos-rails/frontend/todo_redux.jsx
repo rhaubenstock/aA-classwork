@@ -2,7 +2,7 @@ import Redux from 'redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store'
-import { receiveTodo, receiveTodos, fetchTodos} from './actions/todo_actions'
+import { receiveTodo, receiveTodos, fetchTodos, createTodo } from './actions/todo_actions'
 import { receiveSteps, receiveStep, removeStep } from './actions/step_actions.js'
 import Root from './components/root';
 import allTodos from './reducers/selectors';
@@ -17,7 +17,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   ReactDOM.render(<Root store={ window.store } />, root);
 
+
   window.fetchTodos = fetchTodos;
+  window.createTodo = createTodo;
   window.receiveTodo = receiveTodo;
   window.receiveTodos = receiveTodos;
   window.receiveStep = receiveStep;

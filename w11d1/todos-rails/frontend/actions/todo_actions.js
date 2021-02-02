@@ -29,8 +29,16 @@ export const fetchTodos = () => {
   return (dispatch) => {return APIUtil.fetchTodos().then(result => { dispatch(receiveTodos(result))})};
 }
 
+//createTodo - is a thunk action creator
+// which means it returns a function that takes in dispatch
+// we want it to do an API request and then update store based on response
 
-
+export const createTodo = (todo) => {
+  return (dispatch) => {
+    return APIUtil.addTodo(todo)
+            .then(result => dispatch(receiveTodo(result)));
+  }
+}
 
 
 
