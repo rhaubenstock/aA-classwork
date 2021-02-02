@@ -3,6 +3,9 @@ export const RECEIVE_TODO = "RECEIVE_TODO";
 export const REMOVE_TODO = "REMOVE_TODO";
 // export const FETCHTODOS = "FETCHTODOS"
 import * as APIUtil from './../util/todo_api_util'
+import {receiveErrors} from './error_actions'
+
+
 
 export const receiveTodos = (todos) => {
   return {
@@ -33,13 +36,31 @@ export const fetchTodos = () => {
 // which means it returns a function that takes in dispatch
 // we want it to do an API request and then update store based on response
 
-export const createTodo = (todo) => {
-  return (dispatch) => {
-    return APIUtil.addTodo(todo)
-            .then(result => dispatch(receiveTodo(result)));
-  }
-}
+// export const createTodo = (todo) => {
+//   return (dispatch) => {
+//     return APIUtil.addTodo(todo)
+//             .then(result => dispatch(receiveTodo(result)));
+//   }
+// }
 
+
+export const createTodo = todo => {
+  // console.log("got it")
+  debugger
+  return dispatch => {
+    console.log("got it")
+    return APIUtil.createTodo(todo)
+      .then(
+        todo => {
+          debugger
+          return dispatch(receiveTodo(todo))},
+        err => {
+          console.log("error received")
+          return dispatch(receiveErrors(err.responseJSON))
+        }
+      )
+  }
+};
 
 
 
