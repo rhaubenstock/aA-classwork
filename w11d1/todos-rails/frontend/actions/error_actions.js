@@ -3,7 +3,7 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS"
 
 
 
-export function receiveErrors(errors) {
+export const receiveErrors = (errors) => {
   return ({
     type: "RECEIVE_ERRORS",
     errors
@@ -11,7 +11,7 @@ export function receiveErrors(errors) {
 }
 
 
-export function clearErrors() {
+export const clearErrors = () => {
   return ({
     type: "CLEAR_ERRORS"
   })

@@ -45,17 +45,13 @@ export const fetchTodos = () => {
 
 
 export const createTodo = todo => {
-  // console.log("got it")
-  debugger
   return dispatch => {
-    console.log("got it")
-    return APIUtil.createTodo(todo)
+    return APIUtil.addTodo(todo)
       .then(
         todo => {
           debugger
           return dispatch(receiveTodo(todo))},
         err => {
-          console.log("error received")
           return dispatch(receiveErrors(err.responseJSON))
         }
       )

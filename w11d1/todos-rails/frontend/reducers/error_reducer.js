@@ -8,7 +8,6 @@ const errorsReducer = (state=[], action) => {
       return []
 
     case RECEIVE_ERRORS:
-      console.log("received errors")
       return action.errors
 
     default:

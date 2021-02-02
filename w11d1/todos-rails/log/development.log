@@ -768,3 +768,56 @@ Unpermitted parameter: :id
 Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 4.1ms)
 
 
+Started GET "/" for ::1 at 2021-02-01 17:33:56 -0800
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 268ms (Views: 267.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/todos" for ::1 at 2021-02-01 17:33:56 -0800
+Processing by Api::TodosController#index as JSON
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/api/todos_controller.rb:7
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2021-02-01 17:36:56 -0800
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 281ms (Views: 280.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/todos" for ::1 at 2021-02-01 17:36:56 -0800
+Processing by Api::TodosController#index as JSON
+  [1m[36mTodo Load (0.4ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/api/todos_controller.rb:7
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2021-02-01 17:38:14 -0800
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 268ms (Views: 267.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/todos" for ::1 at 2021-02-01 17:38:15 -0800
+Processing by Api::TodosController#index as JSON
+  [1m[36mTodo Load (0.3ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/api/todos_controller.rb:7
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/api/todos" for ::1 at 2021-02-01 17:38:17 -0800
+Processing by Api::TodosController#create as JSON
+  Parameters: {"todo"=>{"title"=>"", "body"=>"", "done"=>"false", "id"=>"1612229895011"}}
+Unpermitted parameter: :id
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/todos_controller.rb:12
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/api/todos_controller.rb:12
+Completed 422 Unprocessable Entity in 18ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+

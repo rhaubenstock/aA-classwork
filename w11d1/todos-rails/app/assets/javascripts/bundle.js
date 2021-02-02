@@ -101,17 +101,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearErrors", function() { return clearErrors; });
 var RECEIVE_ERRORS = "RECEIVE_ERRORS";
 var CLEAR_ERRORS = "CLEAR_ERRORS";
-function receiveErrors(errors) {
+var receiveErrors = function receiveErrors(errors) {
   return {
     type: "RECEIVE_ERRORS",
     errors: errors
   };
-}
-function clearErrors() {
+};
+var clearErrors = function clearErrors() {
   return {
     type: "CLEAR_ERRORS"
   };
-}
+};
 
 /***/ }),
 
@@ -216,15 +216,11 @@ var fetchTodos = function fetchTodos() {
 // }
 
 var createTodo = function createTodo(todo) {
-  // console.log("got it")
-  debugger;
   return function (dispatch) {
-    console.log("got it");
-    return _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["createTodo"](todo).then(function (todo) {
+    return _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["addTodo"](todo).then(function (todo) {
       debugger;
       return dispatch(receiveTodo(todo));
     }, function (err) {
-      console.log("error received");
       return dispatch(Object(_error_actions__WEBPACK_IMPORTED_MODULE_1__["receiveErrors"])(err.responseJSON));
     });
   };
@@ -656,7 +652,6 @@ var errorsReducer = function errorsReducer() {
       return [];
 
     case _actions_error_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ERRORS"]:
-      console.log("received errors");
       return action.errors;
 
     default:
