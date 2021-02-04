@@ -1,0 +1,19 @@
+.section-nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  li {
+    margin: 5px;
+    font-family: $sans-serif;
+  }
+
+  li:hover:not(:last-child){
+    cursor: pointer;
+    background: $lightest-gray;
+  }
+
+  a {
+    text-transform: uppercase;
+  }
+}

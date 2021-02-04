@@ -218,7 +218,6 @@ var fetchTodos = function fetchTodos() {
 var createTodo = function createTodo(todo) {
   return function (dispatch) {
     return _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["addTodo"](todo).then(function (todo) {
-      debugger;
       return dispatch(receiveTodo(todo));
     }, function (err) {
       return dispatch(Object(_error_actions__WEBPACK_IMPORTED_MODULE_1__["receiveErrors"])(err.responseJSON));

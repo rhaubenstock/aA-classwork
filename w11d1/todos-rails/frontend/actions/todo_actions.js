@@ -49,7 +49,6 @@ export const createTodo = todo => {
     return APIUtil.addTodo(todo)
       .then(
         todo => {
-          debugger
           return dispatch(receiveTodo(todo))},
         err => {
           return dispatch(receiveErrors(err.responseJSON))

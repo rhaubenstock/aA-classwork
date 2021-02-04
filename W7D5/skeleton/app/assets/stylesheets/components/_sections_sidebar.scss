@@ -1,0 +1,27 @@
+.section-sidebar {
+  opacity: 0;
+  position: absolute;
+  left: -100px;
+}
+
+.expand {
+  opacity: 1;
+  color: rgb(5, 0, 0);
+  background: white;
+}
+
+
+.dropdown {
+  position: relative;
+}
+.dropdown > ul {
+  display: none;
+  position: absolute;
+  left: 100px;
+  /* use top, left, right, bottom to position */
+}
+.dropdown:hover > ul {
+  /* applies the following style to uls inside .dropdown */
+  /* but only when .dropdown is being hovered over */
+  display: block;
+}
